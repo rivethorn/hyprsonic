@@ -1,0 +1,43 @@
+# Hyprsonic
+
+Hyprsonic is a bespoke low-latency keyboard sound player for Linux, specifically Hyprland. It listens to a keyboard device using evdev and plays short keypress/keyup sounds via miniaudio. Sounds are mixed in-process so multiple key events can overlap with minimal latency.
+
+## Requirements
+- Linux (evdev input system)
+- Python 3.8+
+- See `requirements.txt` for dependencies; main packages:
+  - `evdev` (for keyboard events)
+  - `miniaudio` (for decoding and playback)
+
+## Installation
+1. Clone or copy the repository to a local folder.
+2. Enter the venv.
+python -m venv venv
+source venv/bin/activate.fish
+
+3. Install dependencies.
+pip install -r requirements.txt
+
+4. Place your WAV sound files in the directory `~/.local/share/hyprsonic/` (create it if missing). The program expects the following files (fallbacks are listed in-code):
+
+- `fallback.wav` (regular key down)
+- `fallback-up.wav` (regular key up)
+- `fallback2.wav` / `fallback2-up.wav` (alternate sounds)
+- `enter.wav` / `enter-up.wav`
+- `backspace.wav` / `backspace-up.wav`
+- `spacebar.wav` / `spacebar-up.wav`
+
+Note: WAV files should preferably be 16-bit PCM. The script will decode and resample to 48 kHz stereo signed 16-bit during load.
+
+## Usage
+Run the main script as root or with appropriate permissions to read input devices (you may need to run with sudo or add yourself to the `input` group):
+
+```fish
+python hyprsonic.py
+```
+
+On startup the script prints the chosen keyboard device path and starts audio playback. Press Ctrl+C to stop.
+
+## Configuration
+- You can change the base path where the script looks for audio files by editing the `BASE` variable near the top of `hyprsonic.py`.
+- Output sample rate, channels and format can be adjusted via the `OUT_SAMPLE_RATE`, `OUT_CHANNELS` and `OUT_FORMAT` constants.
