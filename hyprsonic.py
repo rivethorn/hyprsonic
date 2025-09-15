@@ -4,6 +4,9 @@ Low-latency keyboard sound player using pyminiaudio + evdev.
 Mixes sounds in-process so keypresses play immediately and can overlap.
 """
 
+# TODO!
+# Get and copy the audio files on first run.
+
 import miniaudio
 from evdev import InputDevice, list_devices, ecodes
 import threading
