@@ -1,4 +1,6 @@
-# Hyprsonic
+Hyprsonic
+
+---------
 
 Hyprsonic is a bespoke low-latency keyboard sound player for Linux, specifically Hyprland. It listens to a keyboard device using evdev and plays short keypress/keyup sounds via miniaudio. Sounds are mixed in-process so multiple key events can overlap with minimal latency.
 
@@ -31,10 +33,10 @@ Note: WAV files should preferably be 16-bit PCM. The script will decode and resa
 
 ## Usage
 Run the main script as root or with appropriate permissions to read input devices (you may need to run with sudo or add yourself to the `input` group):
-
-```fish
 python hyprsonic.py
-```
+
+Or chmod +x and simply run:
+./hyprsonic.py
 
 On startup the script prints the chosen keyboard device path and starts audio playback. Press Ctrl+C to stop.
 
